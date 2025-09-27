@@ -1,0 +1,12 @@
+type Person {
+    id: Int!
+    name: String!
+}
+
+type Query {
+    personById(id: Int!): Person
+}
+
+type Mutation {
+    updatePerson(id: Int!, name: String!): Person
+}
