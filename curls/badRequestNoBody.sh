@@ -1,0 +1,1 @@
+curl --location --request POST 'localhost:80/graphql'
