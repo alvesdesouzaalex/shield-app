@@ -4,12 +4,22 @@ FROM eclipse-temurin:21-jdk-alpine
 # Define diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia o JAR gerado pelo Maven para dentro do container
-COPY target/shield-app-0.0.1-SNAPSHOT.jar app.jar
+# Copia o código do projeto
+COPY src ./src
 
-# Expõe a porta da aplicação Spring Boot
+# Faz build do jar
+RUN mvn clean install -DskipTests
+
+# Etapa 2: Runtime com JDK 21
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+# Copia o jar gerado da etapa de build
+COPY --from=builder /app/target/shield-app-0.0.1-SNAPSHOT.jar app.jar
+
+# Expõe a porta configurada (9000)
 EXPOSE 9000
 
-# Comando de inicialização
+# Sobe a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]
-

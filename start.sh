@@ -1,19 +1,13 @@
-echo "Stop containers"
+echo "Stopping containers"
 
 docker stop shield-app;
 docker stop nginx-app;
 
 sleep 1;
 
-echo "Removendo containers"
+echo "Removing containers"
 docker rm shield-app;
 docker rm nginx-app;
-
-sleep 1;
-
-echo "Building maven project: mvn clean install"
-
-mvn clean install;
 
 sleep 1;
 
