@@ -1,19 +1,19 @@
 services:
   shield-app:
-    build:
-      context: .
+    build: .
     container_name: shield-app
+    ports:
+      - "9000:8080"
     expose:
-      - "9000"  # só expõe internamente para o nginx
+      - "9000"
     networks:
       - shield-net
 
   nginx-app:
-    build:
-      context: ./nginx
+    build: ./nginx
     container_name: nginx-app
     ports:
-      - "80:80"  # host:container, agora acessível em localhost:8080
+      - "80:80"   # Agora o Nginx expõe direto na porta 80 do host
     depends_on:
       - shield-app
     networks:
