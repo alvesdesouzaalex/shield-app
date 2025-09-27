@@ -1,16 +1,24 @@
 services:
   shield-app:
-    build: .
+    build:
+      context: .
     container_name: shield-app
-    ports:
-      - "9000:9000"
+    expose:
+      - "9000"  # só expõe internamente para o nginx
+    networks:
+      - shield-net
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx_app
+  nginx-app:
+    build:
+      context: ./nginx
+    container_name: nginx-app
     ports:
-      - "80:80"
-    volumes:
-      - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+      - "80:80"  # host:container, agora acessível em localhost:8080
     depends_on:
       - shield-app
+    networks:
+      - shield-net
+
+networks:
+  shield-net:
+    driver: bridge
