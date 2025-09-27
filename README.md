@@ -6,7 +6,6 @@ This is an app to build a graphql app and build a shield with nginx
  sh start.sh
 ```
 
-
 ### Start manually
 | Stop shield-app
 ```shell
@@ -15,12 +14,6 @@ This is an app to build a graphql app and build a shield with nginx
 
 | Start shield-app 
 ```shell
- mvn clean install;
+ mvn clean;
  docker-compose up -d
-```
-
-| Rebuild shield-app
-```shell
- mvn clean install;
- docker-compose up --build -d
 ```
